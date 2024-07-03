@@ -11,7 +11,8 @@ class Window:
 
         # Initialize a Canvas widget with the root widget as its master.
         # The Canvas helps in drawing graphics and complex drawings.
-        self.__canvas = Canvas(self.__root, bg="#8b949e", height=height, width=width)
+        self.__canvas = Canvas(self.__root, bg="#8b949e",
+                               height=height, width=width)
 
         # Pack the Canvas widget into the window (root widget).
         # fill=BOTH makes the Canvas expand to fill the available space.
@@ -54,7 +55,7 @@ class Window:
     def close(self):
         self.__window_running = False
 
-    
+
 class Point:
     def __init__(self, x, y):
         # x = 0 => left of the screen
@@ -78,3 +79,44 @@ class Line:
             fill=fill_color,
             width=2,
         )
+
+
+class Cell:
+    # The constructor takes x1,y1(top-left-corner) and x2,y2(bottom-right-corner)
+    # and a window instance and whether the walls exists or not
+    def __init__(self,
+                 x1,
+                 y1,
+                 x2,
+                 y2,
+                 window,
+                 has_left_wall=True,
+                 has_right_wall=True,
+                 has_top_wall=True,
+                 has_bottom_wall=True
+                 ):
+        self.has_left_wall = has_left_wall
+        self.has_right_wall = has_right_wall
+        self.has_top_wall = has_top_wall
+        self.has_bottom_wall = has_bottom_wall
+        self._x1 = x1
+        self._x2 = x2
+        self._y1 = y1
+        self._y2 = y2
+        self._win = window
+
+    def draw(self):
+        # This method just checks if a wall exists or not
+        # If they exist simply draw that wall on canvas through draw_line method of window class
+        if self.has_bottom_wall:
+            self._win.draw_line(
+                Line(Point(self._x1, self._y2), Point(self._x2, self._y2)), "red")
+        if self.has_right_wall:
+            self._win.draw_line(
+                Line(Point(self._x2, self._y1), Point(self._x2, self._y2)), "red")
+        if self.has_top_wall:
+            self._win.draw_line(
+                Line(Point(self._x1, self._y1), Point(self._x2, self._y1)), "red")
+        if self.has_left_wall:
+            self._win.draw_line(
+                Line(Point(self._x1, self._y1), Point(self._x1, self._y2)), "red")

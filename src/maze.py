@@ -156,3 +156,58 @@ class Maze:
         for i in range(self.num_cols):
             for j in range(self.num_rows):
                 self._cells[i][j]._visited = False
+
+    def solve(self):
+        # Start solving the maze from the top-left corner (0, 0)
+        return self._solve_r(i=0,j=0)
+
+    
+    def _solve_r(self, i, j):
+        # Visualize the current cell (optional, for debugging/animation purposes)
+        self._animate()
+
+        # Mark the current cell as visited
+        self._cells[i][j]._visited = True
+
+        # Define the target end cell (typically the bottom-right corner)
+        end_cell = self._cells[self.num_cols-1][self.num_rows-1]
+        
+        # Check if the current cell is the end cell
+        if self._cells[i][j] == end_cell:
+            return True
+
+        # Define the possible directions to move: Right, Down, Left, Up
+        possible_directions = [(i+1, j), (i, j+1), (i-1, j), (i, j-1)]
+
+        # Iterate through each possible direction
+        for x, y in possible_directions:
+
+            # Check if the new cell is within bounds and not yet visited
+            if 0 <= x < self.num_cols and 0 <= y < self.num_rows and not self._cells[x][y]._visited:
+
+                # Check and move right if no wall is blocking
+                if (x == i+1 and not self._cells[i][j].has_right_wall and not self._cells[x][y].has_left_wall or
+                    # Check and move left if no wall is blocking
+                    x == i-1 and not self._cells[i][j].has_left_wall and not self._cells[x][y].has_right_wall or
+                    # Check and move down if no wall is blocking
+                    y == j+1 and not self._cells[i][j].has_bottom_wall and not self._cells[x][y].has_top_wall or
+                    # Check and move up if no wall is blocking
+                    y == j-1 and not self._cells[i][j].has_top_wall and not self._cells[x][y].has_bottom_wall):
+                    
+                    # Draw the move from the current cell to the new cell
+                    self._cells[i][j].draw_move(self._cells[x][y])
+
+                    # Recursively attempt to solve the maze from the new cell
+                    if self._solve_r(x, y):
+                        return True  # If the new cell leads to a solution, return True
+
+                    # If the move didn't lead to a solution, backtrack and undo the move
+                    self._cells[i][j].draw_move(self._cells[x][y], True)
+
+        # If none of the moves lead to a solution, return False to indicate failure
+        return False
+                                
+
+    
+
+

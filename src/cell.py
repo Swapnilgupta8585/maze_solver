@@ -83,6 +83,6 @@ class Cell:
 
         # Draw the line in gray if undo is True, otherwise in red
         if undo:
-            self._win.draw_line(line, "gray")
+            self._win.draw_line(line, "black")
         else:
             self._win.draw_line(line, "red")

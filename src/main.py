@@ -3,8 +3,8 @@ from maze import Maze
 
 def main():
     win = Window(800,600)
-    maze = Maze(550, 200, 10, 10, 80, 80, win)
-   
+    maze = Maze(550, 200, 20, 20, 40, 40, win)
+    maze.solve()
     win.wait_for_close()
 
 main()

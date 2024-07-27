@@ -34,10 +34,15 @@ To run this project, you need Python installed on your machine. The project uses
    ```bash
    cd path/to/maze-solver
     ```
-2. **Run the main script:**
+2. **(Optional) Make the script executable:**
+    This step is optional but recommended for convenience:
     ```bash
-    python main.py
+    chmod +x main.sh
     ```
-3. This will open a window displaying the maze generation and solving process.
+3. **Run the script to start the program:**
+    ```bash
+    ./main.sh
+    ```
+4. This script will execute the Python program and open a window displaying the maze generation and solving process.
 
 Thank You.

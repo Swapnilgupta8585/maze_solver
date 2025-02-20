@@ -1,5 +1,7 @@
 # Maze Solver
 
+![mazeSolverGif](https://github.com/user-attachments/assets/acf4d4a1-6e2a-4040-88d0-d360d7e9875b)
+
 This project implements a maze generator and solver using Python. The maze is visualized with Tkinter, and the maze is solved using a recursive algorithm.
 
 ## Features
